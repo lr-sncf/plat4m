@@ -1,0 +1,16 @@
+<launch>
+ <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!-- <arg name="world_name" value="worlds/mud.world"/> --> 
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="recording" value="false"/>
+    <arg name="debug" value="false"/>
+</include>
+  
+<!-- Convert an xacro and put on parameter server -->
+<param command="$(find xacro)/xacro --inorder '$(find plat4m_description)/urdf/plat4m.xacro'" name="robot_description"/>
+<!-- Spawn a robot into Gazebo -->
+<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" output="screen" 
+  args="-param robot_description -urdf -model plat4m"/>
+</launch>
